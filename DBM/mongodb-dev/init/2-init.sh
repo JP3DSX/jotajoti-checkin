@@ -1,0 +1,1 @@
+mongoimport -u hoge -p huga --db jotajotijp-dev --collection sample-data --drop --file /docker-entrypoint-initdb.d/sample-zip.json --jsonArray
