@@ -1,8 +1,11 @@
 "use client";
 import * as React from "react";
+import { darkTheme, lightTheme } from "../theme/themes";
+import { ChangeEvent, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { FormControlLabel, Switch } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Suspense } from "react";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -30,12 +33,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainSideBarItems, secondarySideBarItems } from "./sideBar";
+import { mainSideBarItems, secondarySideBarItems } from "../components/global/s_sideBar";
 
 import { dark } from "@mui/material/styles/createPalette";
 import "./globals.css";
-import { darkTheme, lightTheme } from "../theme/themes";
-import { ChangeEvent, useState } from "react";
 
 function Copyright(props: any) {
   return (
@@ -59,8 +60,8 @@ const drawerWidth: number = 240;
 
 const LINKS = [
   { text: "Home", href: "/", icon: HomeIcon },
-  { text: "CheckIn", href: "/check-in", icon: StarIcon },
-  { text: "LoremIpsum", href: "/", icon: ChecklistIcon },
+  { text: "View CheckIn", href: "/check-in-view", icon: StarIcon },
+  { text: "Playground", href: "/playground", icon: ChecklistIcon },
 ];
 
 const PLACEHOLDER_LINKS = [
@@ -213,7 +214,7 @@ export default function RootLayout({
               <Divider />
               <List component="nav">
                 {LINKS.map(({ text, href, icon: Icon }) => (
-                  <ListItem key={href} disablePadding>
+                  <ListItem disablePadding>
                     <ListItemButton component={Link} href={href}>
                       <ListItemIcon>
                         <Icon />
@@ -228,7 +229,7 @@ export default function RootLayout({
                   }}
                 />
                 {PLACEHOLDER_LINKS.map(({ text, icon: Icon }) => (
-                  <ListItem key={text} disablePadding>
+                  <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>
                         <Icon />
@@ -252,10 +253,13 @@ export default function RootLayout({
               }}
             >
               <Toolbar />
-              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+              <Suspense fallback="Loading...">
+              <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                 {children}
                 <Copyright sx={{ pt: 4 }} />
+
               </Container>
+              </Suspense>
             </Box>
           </Box>
         </body>
